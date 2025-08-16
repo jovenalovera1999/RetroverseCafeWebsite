@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+
+@utility bg-primary {
+  @apply bg-[#666560]
+}
+
+@utility bg-secondary {
+  @apply bg-[#d7d4cf]
+}
+
+@utility text-primary {
+  @apply text-[#666560]
+}
+
+@utility text-secondary {
+  @apply text-[#d7d4cf]
+}
+
+@utility border-primary {
+  @apply border-[#666560]
+}
+
+@utility border-secondary {
+  @apply border-[#d7d4cf]
+}
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    @apply size-1.5
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply rounded-full
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-gray-200 rounded-full
+  }
+}
