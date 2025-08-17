@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+@utility bg-retroverse {
+  @apply bg-[url('./assets/img/AnotherRetroverseCafeStore.png')]
+}
+
 @utility bg-primary {
   @apply bg-[#666560]
 }

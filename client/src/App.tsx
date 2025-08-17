@@ -1,7 +1,12 @@
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
+
 const App = () => {
   return (
     <>
-      <div className="text-color-secondary">App</div>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </>
   );
 };

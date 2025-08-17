@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { useSidebar } from "../contexts/SidebarContext";
-import { useCallback } from "react";
+import { useCallback, type ReactNode } from "react";
 import CompanyLogo from "../assets/img/CompanyLogo.png";
+import { BookIcon, LocationIcon, ProductIcon } from "../assets/icons";
 
 const AppSidebar = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
@@ -11,6 +12,30 @@ const AppSidebar = () => {
     (path: string) => location.pathname === path,
     [location.pathname]
   );
+
+  type NavItemType = {
+    icon: ReactNode;
+    name: string;
+    path: string;
+  };
+
+  const navItems: NavItemType[] = [
+    {
+      icon: <BookIcon />,
+      name: "About",
+      path: "/",
+    },
+    {
+      icon: <ProductIcon />,
+      name: "Products",
+      path: "/",
+    },
+    {
+      icon: <LocationIcon />,
+      name: "Location",
+      path: "/",
+    },
+  ];
 
   return (
     <>
@@ -33,20 +58,46 @@ const AppSidebar = () => {
               <img
                 src={CompanyLogo}
                 alt="Company Logo"
-                className="w-[150px] h-[40px]"
+                width={150}
+                height={40}
               />
             ) : (
               <img
                 src={CompanyLogo}
                 alt="Company Logo"
-                className="w-[150px] h-[32px]"
+                width={80}
+                height={80}
               />
             )}
           </Link>
         </div>
         <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
           <nav className="mb-6">
-            <ul className="flex flex-col gap-1"></ul>
+            <ul className="flex flex-col gap-1">
+              {navItems.map((navItem) => (
+                <li key={navItem.name}>
+                  <Link
+                    to={navItem.path}
+                    className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors duration-300 ${
+                      isActive(navItem.path)
+                        ? "bg-primary text-secondary"
+                        : "text-secondary"
+                    } hover:bg-secondary hover:text-primary ${
+                      !isExpanded && !isHovered
+                        ? "lg:justify-center"
+                        : "lg:justify-start"
+                    }`}
+                  >
+                    <span className={!isExpanded && !isHovered ? "" : "mr-3"}>
+                      {navItem.icon}
+                    </span>
+                    {(isExpanded || isHovered || isMobileOpen) && (
+                      <span>{navItem.name}</span>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
         </div>
       </aside>

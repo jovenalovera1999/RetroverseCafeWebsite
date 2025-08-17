@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useSidebar } from "../contexts/SidebarContext";
 import { Link } from "react-router-dom";
 import CompanyLogo from "../assets/img/CompanyLogo.png";
@@ -6,7 +6,7 @@ import CompanyLogo from "../assets/img/CompanyLogo.png";
 const AppHeader = () => {
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
 
-  const [isApplicationMenuOpen, setIsApplicationMenuOpen] = useState(false);
+  // const [isApplicationMenuOpen, setIsApplicationMenuOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -18,9 +18,9 @@ const AppHeader = () => {
     }
   };
 
-  const toggleApplicationMenu = () => {
-    setIsApplicationMenuOpen((prev) => !prev);
-  };
+  // const toggleApplicationMenu = () => {
+  //   setIsApplicationMenuOpen((prev) => !prev);
+  // };
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if ((event.metaKey || event.ctrlKey) && event.key === "k") {
@@ -43,7 +43,7 @@ const AppHeader = () => {
         <div className="flex flex-col items-center justify-between grow lg:flex-row lg:px-6">
           <div className="flex items-center justify-between w-full gap-2 px-3 py-3 border-b border-secondary sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4">
             <button
-              className="items-center justify-center w-10 h-10 bg-primary text-secondary border-secondary hover:bg-secondary hover:text-primary hover:border-primary"
+              className="items-center justify-center w-10 h-10 bg-primary text-secondary cursor-pointer"
               onClick={handleToggle}
               aria-label="Toggle Sidebar"
             >
@@ -86,7 +86,9 @@ const AppHeader = () => {
                   alt="Company Logo"
                   className="w-[50px] h-[50px]"
                 />
-                <p className="mt-3 font-medium text-lg">Retroverse Cafe</p>
+                <p className="mt-3 font-medium text-lg text-secondary">
+                  Retroverse Cafe
+                </p>
               </div>
             </Link>
           </div>

@@ -7,9 +7,9 @@ interface PageMetaProps {
 const PageMeta = ({ title }: PageMetaProps) => {
   useEffect(() => {
     document.title = `${title} | Retroverse Cafe`;
-  }, []);
+  }, [title]);
 
-  return;
+  return null;
 };
 
 export default PageMeta;
