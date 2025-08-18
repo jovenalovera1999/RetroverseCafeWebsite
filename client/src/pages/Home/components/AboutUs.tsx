@@ -1,6 +1,6 @@
 import ComponentCard from "../../../components/Common/ComponentCard";
 
-const Description = () => {
+const AboutUs = () => {
   const content = (
     <>
       <p className="text-secondary">
@@ -21,4 +21,4 @@ const Description = () => {
   );
 };
 
-export default Description;
+export default AboutUs;

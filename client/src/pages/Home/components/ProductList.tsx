@@ -1,4 +1,6 @@
+import { useEffect, useMemo, useState } from "react";
 import ComponentCard from "../../../components/Common/ComponentCard";
+import FloatingLabelInput from "../../../components/Input/FloatingLabelInput";
 import {
   Table,
   TableBody,
@@ -6,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../../components/Table";
+import debounce from "lodash.debounce";
 
 const ProductList = () => {
   type ProductType = {
@@ -291,11 +294,56 @@ const ProductList = () => {
     },
   ];
 
+  const [search, setSearch] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((query: string) => {
+        if (!query.trim()) {
+          setFilteredProducts(products);
+        } else {
+          setFilteredProducts(
+            products.filter(
+              (p) =>
+                p.category?.toLowerCase().includes(query.toLowerCase()) ||
+                p.name.toLowerCase().includes(query.toLowerCase())
+            )
+          );
+        }
+      }, 800),
+    [products]
+  );
+
+  useEffect(() => {
+    debouncedSearch(search);
+
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [search, debouncedSearch]);
+
   const content = (
     <>
       <div className="overflow-hidden rounded-lg border border-secondary bg-primary">
         <div className="max-w-full max-h-[calc(100vh-10rem)] overflow-x-auto custom-scrollbar">
           <Table>
+            <caption className="mb-4">
+              <div className="border-b border-secondary">
+                <div className="p-4 flex justify-between">
+                  <div className="w-64">
+                    <FloatingLabelInput
+                      label="Search"
+                      type="text"
+                      name="search"
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      autoFocus
+                    />
+                  </div>
+                </div>
+              </div>
+            </caption>
             <TableHeader className="border-b border-secondary bg-secondary text-primary sticky top-0 z-30 text-xs">
               <TableRow>
                 <TableCell
@@ -325,8 +373,8 @@ const ProductList = () => {
               </TableRow>
             </TableHeader>
             <TableBody className="divide-y divide-gray-100 text-secondary text-sm">
-              {(products.length ?? 0) > 0 ? (
-                products.map((product, index) => (
+              {(filteredProducts.length ?? 0) > 0 ? (
+                filteredProducts.map((product, index) => (
                   <TableRow
                     className="hover:bg-secondary hover:text-primary"
                     key={index}
@@ -347,7 +395,7 @@ const ProductList = () => {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell className="px-4 py-3 text-center">
+                  <TableCell colSpan={4} className="px-4 py-3 text-center">
                     No Records Found
                   </TableCell>
                 </TableRow>

@@ -20,10 +20,10 @@ const LayoutContent = () => {
           } ${isMobileOpen ? "ml-0" : ""}`}
         >
           <AppHeader />
-          <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6 bg-retroverse bg-cover bg-center">
+          <div className="relative min-h-screen w-full bg-retroverse bg-cover bg-center">
             <div className="absolute inset-0 bg-black/80" />
 
-            <div className="relative z-10">
+            <div className="relative z-10 p-4 lg:p-6">
               <Outlet />
             </div>
           </div>

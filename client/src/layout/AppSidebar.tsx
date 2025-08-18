@@ -1,8 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-scroll";
 import { useSidebar } from "../contexts/SidebarContext";
 import { useCallback, type ReactNode } from "react";
 import CompanyLogo from "../assets/img/CompanyLogo.png";
-import { BookIcon, LocationIcon, ProductIcon } from "../assets/icons";
+import {
+  BookIcon,
+  ImageIcon,
+  LocationIcon,
+  Phone,
+  ProductIcon,
+} from "../assets/icons";
 
 const AppSidebar = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
@@ -23,17 +30,27 @@ const AppSidebar = () => {
     {
       icon: <BookIcon />,
       name: "About",
-      path: "/",
+      path: "about_us",
     },
     {
       icon: <ProductIcon />,
       name: "Products",
-      path: "/",
+      path: "product_list",
+    },
+    {
+      icon: <ImageIcon />,
+      name: "Gallery",
+      path: "gallery",
     },
     {
       icon: <LocationIcon />,
       name: "Location",
-      path: "/",
+      path: "location",
+    },
+    {
+      icon: <Phone />,
+      name: "Contact Information",
+      path: "contact_information",
     },
   ];
 
@@ -86,7 +103,9 @@ const AppSidebar = () => {
                       !isExpanded && !isHovered
                         ? "lg:justify-center"
                         : "lg:justify-start"
-                    }`}
+                    } cursor-pointer`}
+                    smooth={true}
+                    duration={500}
                   >
                     <span className={!isExpanded && !isHovered ? "" : "mr-3"}>
                       {navItem.icon}
