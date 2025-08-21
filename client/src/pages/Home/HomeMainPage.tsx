@@ -4,6 +4,7 @@ import AboutUs from "./components/AboutUs";
 import Location from "./components/Location";
 import ProductList from "./components/ProductList";
 import Gallery from "./components/Gallery";
+import ComponentCard from "../../components/Common/ComponentCard";
 
 const HomeMainPage = () => {
   return (
@@ -20,14 +21,16 @@ const HomeMainPage = () => {
         <Gallery />
       </div>
       <div className="mb-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div id="location" className="col-span-2 md:col-span-1">
-            <Location />
+        <ComponentCard title="Location & Contact Information">
+          <div className="grid grid-cols-2 gap-4">
+            <div id="location" className="col-span-2 md:col-span-1">
+              <Location />
+            </div>
+            <div id="contact_information" className="col-span-2 md:col-span-1">
+              <ContactInformation />
+            </div>
           </div>
-          <div id="contact_information" className="col-span-2 md:col-span-1">
-            <ContactInformation />
-          </div>
-        </div>
+        </ComponentCard>
       </div>
     </>
   );

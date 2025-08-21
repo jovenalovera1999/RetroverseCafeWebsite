@@ -6,9 +6,9 @@ interface FloatingLabelInputProps {
   name: string;
   value?: string | any;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  newLabelClassName?: string;
+  labelBaseClassName?: string;
   labelClassName?: string;
-  newInputClassName?: string;
+  inputBaseClassName?: string;
   inputClassName?: string;
   required?: boolean;
   autoFocus?: boolean;
@@ -23,9 +23,9 @@ const FloatingLabelInput = ({
   name,
   value,
   onChange,
-  newLabelClassName,
+  labelBaseClassName = "absolute text-sm text-secondary duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-primary px-2 peer-focus:px-2 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1.5 peer-focus:scale-75 peer-focus:-translate-y-4 start-1",
   labelClassName,
-  newInputClassName,
+  inputBaseClassName = "block px-2.5 pb-2.5 pt-4 w-full text-sm text-secondary bg-transparent rounded-lg border-1 border-secondary appearance-none focus:outline-none focus:ring-0 focus:border-white focus:text-white peer",
   inputClassName,
   required,
   autoFocus,
@@ -33,6 +33,9 @@ const FloatingLabelInput = ({
   readOnly,
   errors,
 }: FloatingLabelInputProps) => {
+  const labelCombinedClasses = `${labelBaseClassName} ${labelClassName}`.trim();
+  const inputCombinedClasses = `${inputBaseClassName} ${inputClassName}`.trim();
+
   return (
     <>
       <div className="relative">
@@ -42,24 +45,13 @@ const FloatingLabelInput = ({
           name={name}
           value={value}
           onChange={onChange}
-          className={`${
-            newInputClassName
-              ? newInputClassName
-              : `block px-2.5 pb-2.5 pt-4 w-full text-sm text-secondary bg-transparent rounded-lg border-1 border-secondary appearance-none focus:outline-none focus:ring-0 focus:border-secondary peer ${inputClassName}`
-          }`}
+          className={inputCombinedClasses}
           placeholder=" "
           autoFocus={autoFocus}
           disabled={disabled}
           readOnly={readOnly}
         />
-        <label
-          htmlFor={name}
-          className={`${
-            newLabelClassName
-              ? newLabelClassName
-              : `absolute text-sm text-secondary duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-primary px-2 peer-focus:px-2 peer-focus:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 ${labelClassName}`
-          }`}
-        >
+        <label htmlFor={name} className={labelCombinedClasses}>
           {label}
           {required && <span className="text-red-600 ml-1">*</span>}
         </label>
